@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private long duration;
     private long elaspedTime;
     private Handler handler;
+
+    private final int time = 5000;
 
     private Runnable updateTime = new Runnable() {
         @Override
@@ -66,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void backward(View view) {
+        int position = mediaPlayer.getCurrentPosition();
 
+        if ((position - time) > 0) {
+            mediaPlayer.seekTo(position - time);
+        } else {
+            Toast.makeText(this, "You can't go backward", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void pause(View view) {
@@ -74,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void forward(View view) {
+
+        int position = mediaPlayer.getCurrentPosition();
+
+        if ((position + time) < duration) {
+            mediaPlayer.seekTo(position + time);
+        } else {
+            Toast.makeText(this, "You can't go forward", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
