@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,11 @@ import android.widget.Toast;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+    private Button buttonPlay;
+    private Button buttonPause;
+    private Button buttonForward;
+    private Button buttonBackward;
+
     private MediaPlayer mediaPlayer;
     private TextView tvElapsedTime;
     private TextView tvDuration;
@@ -31,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
             long minute = TimeUnit.MILLISECONDS.toMinutes(elaspedTime); // 2
             long second = TimeUnit.MILLISECONDS.toSeconds(elaspedTime) -
-                    TimeUnit.MILLISECONDS.toSeconds(minute);
+                    TimeUnit.MINUTES.toSeconds(minute);
 
             tvElapsedTime.setText(String.format("%d Min %d Sec", minute, second));
             handler.postDelayed(this, 1000);
@@ -44,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         handler = new Handler();
 
+        buttonPlay = findViewById(R.id.btn_play);
+        buttonPause = findViewById(R.id.btn_pause);
+        buttonForward = findViewById(R.id.btn_forward);
+        buttonBackward = findViewById(R.id.btn_backward);
+
+        buttonPause.setClickable(false);
+        buttonForward.setClickable(false);
+        buttonBackward.setClickable(false);
+
         tvElapsedTime = findViewById(R.id.tv_elapsedTime);
         tvDuration = findViewById(R.id.tv_duration);
         seekBar = findViewById(R.id.seekBar);
@@ -55,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         long minute = TimeUnit.MILLISECONDS.toMinutes(duration); // 2
         long second = TimeUnit.MILLISECONDS.toSeconds(duration) -
-                TimeUnit.MILLISECONDS.toSeconds(minute);
+                TimeUnit.MINUTES.toSeconds(minute);
 
         tvDuration.setText(String.format("%d Min %d Sec", minute, second));
 
@@ -66,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
 
         handler.postDelayed(updateTime, 1000);
+
+        buttonPlay.setClickable(false);
+
+        buttonPause.setClickable(true);
+        buttonBackward.setClickable(true);
+        buttonForward.setClickable(true);
     }
 
     public void backward(View view) {
@@ -80,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void pause(View view) {
         mediaPlayer.pause();
+
+        buttonPlay.setClickable(true);
+        buttonPause.setClickable(false);
+        buttonBackward.setClickable(false);
+        buttonForward.setClickable(false);
     }
 
     public void forward(View view) {
