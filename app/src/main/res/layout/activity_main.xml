@@ -48,28 +48,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="backward"
-            android:text="<<" />
+            android:text="@string/backward" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="play"
-            android:text=">" />
+            android:text="@string/play" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="pause"
-            android:text="||" />
+            android:text="@string/pause" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="forward"
-            android:text=">>" />
+            android:text="@string/forward" />
     </LinearLayout>
 
 
